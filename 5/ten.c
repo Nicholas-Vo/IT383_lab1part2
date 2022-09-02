@@ -11,19 +11,11 @@
 #include <sys/types.h>
 #include <fcntl.h>
 
-#define BUFFER_SIZE 8192
-
-const char* int_to_string(int input) {
-	char str[BUFFER_SIZE];
-	return sprintf();
-}
-
 int main() {
 	int numbers[10];
 	int i, output_fd;
 	char *filename = "results.txt";
-
-	file = open(filename, O_RDWR | O_CREAT);
+	output_fd = open(filename, O_RDWR | O_CREAT); // output file's file descriptor 
 
 	printf("Enter ten numbers...\n");
 	for (i = 0; i < 10; i++) {
@@ -31,13 +23,13 @@ int main() {
 		scanf("%d", &numbers[i]);
 	}
 
-	int j;
-
 	printf("You entered:\n");
+	int j;
 	for (j = 9; j >= 0; j--) {
 		printf("%d\n", numbers[j]);
-		write(file, numbers[j], strlen(numbers[j]));
-		//sprintf(file, "%d\n", numbers[j]);
+		char buffer[25];
+		sprintf(buffer, "%d\n", numbers[j]); // Load number into buffer. Turns int into char?
+		write(output_fd, buffer, strlen(buffer)); // write to file. strlen() potentially dangerous
 	}
 	
 	close(output_fd);
